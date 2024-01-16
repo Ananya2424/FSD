@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration Success</title>
+  </head>
+  <body>
+    <h2>Registration Successful</h2>
+    <p>Details submitted:</p>
+    <div id="userData"></div>
+
+    <script>
+      // Retrieve data from localStorage and display it
+      var userData = localStorage.getItem("userData");
+      if (userData) {
+        userData = JSON.parse(userData);
+
+        document.getElementById("userData").innerHTML =
+          "<strong>Name:</strong> " +
+          userData.name +
+          "<br><strong>Date of Birth:</strong> " +
+          userData.dob +
+          "<br><strong>City:</strong> " +
+          userData.city +
+          "<br><strong>Gender:</strong> " +
+          userData.gender;
+      }
+    </script>
+  </body>
+</html>

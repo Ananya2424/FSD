@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registration Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #3498db;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    form {
+      max-width: 600px;
+      margin: 20px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    input[type="radio"] {
+      margin-right: 5px;
+    }
+
+    button {
+      background-color: #3498db;
+      color: #fff;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    section {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to My Registration Page</h1>
+  </header>
+
+  <form onsubmit="event.preventDefault(); storeFormData();">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required /><br />
+
+    <label for="dob">Date of Birth:</label>
+    <input type="date" id="dob" name="dob" required /><br />
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required /><br />
+
+    <label for="country">Country:</label>
+    <select id="country" name="country" onchange="populateStates()" required>
+      <option value="" disabled selected>Select your country</option>
+      <option value="USA">USA</option>
+      <option value="Canada">Canada</option>
+      <option value="India">India</option>
+    </select><br />
+
+    <label for="state">State:</label>
+    <select id="state" name="state" onchange="populateCities()" required>
+      <option value="" disabled selected>Select your state</option>
+      <!-- States will be populated dynamically using JavaScript -->
+    </select><br />
+
+    <label for="city">City:</label>
+    <select id="city" name="city" required>
+      <option value="" disabled selected>Select your city</option>
+      <!-- Cities will be populated dynamically using JavaScript -->
+    </select><br />
+
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="address" required /><br />
+
+    <label for="sameBillingAddress">
+      <input type="checkbox" id="sameBillingAddress" name="sameBillingAddress" onchange="handleSameBillingAddress()" />
+      Same as Billing Address
+    </label><br />
+
+    <label for="permanentAddress">Permanent Address:</label>
+    <input type="text" id="permanentAddress" name="permanentAddress" required /><br />
+
+    <label>Gender:</label>
+    <input type="radio" id="male" name="gender" value="male" required />
+    <label for="male">Male</label><br />
+
+    <input type="radio" id="female" name="gender" value="female" required />
+    <label for="female">Female</label><br />
+
+    <input type="radio" id="other" name="gender" value="other" required />
+    <label for="other">Other</label><br />
+
+    <button type="submit">Register</button>
+  </form>
+
+  <section>
+    <img src="registration.jpg" alt="Website Image">
+  </section>
+
+  <script>
+    function storeFormData() {
+      // Your existing code for storing form data
+    }
+
+    function handleSameBillingAddress() {
+      // Your existing code for handling same billing address
+    }
+
+    function populateStates() {
+      var countrySelect = document.getElementById("country");
+      var stateSelect = document.getElementById("state");
+      var citySelect = document.getElementById("city");
+
+      // Clear existing options
+      stateSelect.innerHTML = "<option value='' disabled selected>Select your state</option>";
+      citySelect.innerHTML = "<option value='' disabled selected>Select your city</option>";
+
+      // Get selected country
+      var selectedCountry = countrySelect.value;
+
+      // Populate states based on the selected country
+      var states;
+      switch (selectedCountry) {
+        case "USA":
+          states = ["New York", "California", "Texas"];
+          break;
+        case "Canada":
+          states = ["Ontario", "Quebec", "British Columbia"];
+          break;
+        case "India":
+          states = ["Maharashtra", "Delhi", "Karnataka"];
+          break;
+        default:
+          states = [];
+      }
+
+      // Add options to the state dropdown
+      states.forEach(function (state) {
+        var option = document.createElement("option");
+        option.value = state;
+        option.textContent = state;
+        stateSelect.appendChild(option);
+      });
+
+      // Trigger population of cities when selecting a country
+      populateCities();
+    }
+
+    function populateCities() {
+      var stateSelect = document.getElementById("state");
+      var citySelect = document.getElementById("city");
+
+      // Clear existing options
+      citySelect.innerHTML = "<option value='' disabled selected>Select your city</option>";
+
+      // Get selected state
+      var selectedState = stateSelect.value;
+
+      // Populate cities based on the selected state
+      var cities;
+      switch (selectedState) {
+        case "New York":
+          cities = ["New York City", "Albany", "Buffalo"];
+          break;
+        case "California":
+          cities = ["Los Angeles", "San Francisco", "San Diego"];
+          break;
+        case "Texas":
+          cities = ["Houston", "Dallas", "Austin"];
+          break;
+        case "Ontario":
+          cities = ["Toronto", "Ottawa", "Mississauga"];
+          break;
+        case "Quebec":
+        cities = ["Montreal", "Quebec City", "Laval"];
+        break;
+      case "British Columbia":
+        cities = ["Vancouver", "Victoria", "Surrey"];
+        break;
+      case "Maharashtra":
+        cities = ["Mumbai", "Pune", "Nagpur"];
+        break;
+      case "Delhi":
+        cities = ["New Delhi", "Noida", "Gurgaon"];
+        break;
+      case "Karnataka":
+        cities = ["Bangalore", "Mysore", "Hubli"];
+        break;
+      // Add cases for other states similarly
+      default:
+        cities = [];
+    }
+
+    // Add options to the city dropdown
+    cities.forEach(function (city) {
+      var option = document.createElement("option");
+      option.value = city;
+      option.textContent = city;
+      citySelect.appendChild(option);
+    });
+  }
+</script>
+</body>
+</html>
+
